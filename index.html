@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viaje por Colombia</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+    <link rel="shortcut icon" href="/assets/img/avion.png" type="image/x-icon">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i data-lucide="plane" class="logo-icon"></i>
+                <span>Viaje por Colombia</span>
+            </div>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#inicio">Inicio</a>
+                <a href="#destinos">Destinos</a>
+                <a href="#ofertas">Ofertas</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="inicio">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Descubre Colombia Volando</h1>
+            <p>Los mejores destinos nacionales al mejor precio</p>
+            
+            <!-- Search Form -->
+            <div class="search-form">
+                <h2>Encuentra tu vuelo ideal</h2>
+                <div class="search-grid">
+                    <div class="form-group">
+                        <label>Origen</label>
+                        <div class="input-icon">
+                            <i data-lucide="map-pin"></i>
+                            <select>
+                                <option>Bucaramanga</option>
+                                <option>Bogotá</option>
+                                <option>Cali</option>
+                                <option>Medellín</option>
+                                <option>Santa Marta</option>
+                                <option>Cúcuta</option>
+                                <option>Cartagena</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Destino</label>
+                        <div class="input-icon">
+                            <i data-lucide="map-pin"></i>
+                            <select>
+                                <option>Bogotá</option>
+                                <option>Cartagena</option>
+                                <option>Medellín</option>
+                                <option>Santa Marta</option>
+                                <option>Bucaramanga</option>
+                                <option>Buga</option>
+                                <option>Cúcuta</option>
+                                <option>Cali</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Ida</label>
+                        <div class="input-icon">
+                            <i data-lucide="calendar"></i>
+                            <input type="date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha Vuelta</label>
+                        <div class="input-icon">
+                            <i data-lucide="calendar"></i>
+                            <input type="date">
+                        </div>
+                    </div>
+                </div>
+                <button class="search-button">Buscar Vuelos</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destinations Section -->
+    <section class="destinations" id="destinos">
+        <h2>Destinos Populares</h2>
+        <div class="carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Cards will be dynamically populated by JavaScript -->
+            </div>
+            <div class="carousel-nav" id="carouselNav">
+                <!-- Navigation buttons will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Section -->
+    <section class="promo" id="ofertas">
+        <h2>¿Por qué viajar con nosotros?</h2>
+        <div class="promo-grid">
+            <div class="promo-card">
+                <h3>Mejores Precios</h3>
+                <p>Garantizamos las tarifas más competitivas del mercado.</p>
+            </div>
+            <div class="promo-card">
+                <h3>Flexibilidad</h3>
+                <p>Cambios y cancelaciones sin complicaciones.</p>
+            </div>
+            <div class="promo-card">
+                <h3>Atención 24/7</h3>
+                <p>Soporte personalizado en todo momento.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Viaje por Colombia</h3>
+                <p>Tu mejor opción para volar por el país.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#inicio">Sobre Nosotros</a></li>
+                    <li><a href="#destinos">Destinos</a></li>
+                    <li><a href="#ofertas">Ofertas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>Tel: 315 6189650</li>
+                    <li>Email: juanm.almeida@biinteli.com</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Viaje por Colombia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>
