@@ -47,14 +47,14 @@
                         <label>Origen</label>
                         <div class="input-icon">
                             <i data-lucide="map-pin"></i>
-                            <select>
-                                <option>Bucaramanga</option>
-                                <option>Bogotá</option>
-                                <option>Cali</option>
-                                <option>Medellín</option>
-                                <option>Santa Marta</option>
-                                <option>Cúcuta</option>
-                                <option>Cartagena</option>
+                            <select id="origen">
+                                <option value="Bucaramanga">Bucaramanga</option>
+                                <option value="Bogotá">Bogotá</option>
+                                <option value="Cali">Cali</option>
+                                <option value="Medellín">Medellín</option>
+                                <option value="Santa Marta">Santa Marta</option>
+                                <option value="Cúcuta">Cúcuta</option>
+                                <option value="Cartagena">Cartagena</option>
                             </select>
                         </div>
                     </div>
@@ -63,36 +63,21 @@
                         <label>Destino</label>
                         <div class="input-icon">
                             <i data-lucide="map-pin"></i>
-                            <select>
-                                <option>Bogotá</option>
-                                <option>Cartagena</option>
-                                <option>Medellín</option>
-                                <option>Santa Marta</option>
-                                <option>Bucaramanga</option>
-                                <option>Buga</option>
-                                <option>Cúcuta</option>
-                                <option>Cali</option>
+                            <select id="destino">
+                                <option value="Bogotá">Bogotá</option>
+                                <option value="Cartagena">Cartagena</option>
+                                <option value="Medellín">Medellín</option>
+                                <option value="Santa Marta">Santa Marta</option>
+                                <option value="Bucaramanga">Bucaramanga</option>
+                                <option value="Buga">Buga</option>
+                                <option value="Cúcuta">Cúcuta</option>
+                                <option value="Cali">Cali</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Fecha Ida</label>
-                        <div class="input-icon">
-                            <i data-lucide="calendar"></i>
-                            <input type="date">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Fecha Vuelta</label>
-                        <div class="input-icon">
-                            <i data-lucide="calendar"></i>
-                            <input type="date">
                         </div>
                     </div>
                 </div>
                 <button class="search-button">Buscar Vuelos</button>
-            </div>
+            </div>           
         </div>
     </div>
 
@@ -157,5 +142,6 @@
     </footer>
 
     <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/heroScript.js"></script>
 </body>
 </html>

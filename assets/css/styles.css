@@ -1,30 +1,28 @@
-/* Estilo para la scrollbar en navegadores WebKit (Chrome, Safari) */
+/* Scrollbar Styles */
 ::-webkit-scrollbar {
-    width: 12px; /* ancho de la scrollbar */
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* color del track */
-    border-radius: 10px; /* bordes redondeados */
+    background: #f1f1f1;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #2ab0a5; /* color del thumb */
-    border-radius: 10px; /* bordes redondeados */
+    background: #2ab0a5;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #1d4ed8; /* color del thumb al pasar el mouse */
+    background: #1d4ed8;
 }
 
-/* Estilo para la scrollbar en Firefox */
 * {
-    scrollbar-width: thin; /* ancho del scrollbar */
-    scrollbar-color: #2ab0a5 #f1f1f1; /* color del thumb y del track */
+    scrollbar-width: thin;
+    scrollbar-color: #2ab0a5 #f1f1f1;
 }
 
-
-/* Reset and base styles */
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -43,9 +41,15 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: transparent;
+    transition: background-color 0.3s ease;
+    box-shadow: none;
     z-index: 1000;
+}
+
+.navbar.scrolled {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
@@ -96,14 +100,15 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    min-height: 95vh;
-    background-image: url('/assets/img/fondo.jpg');
+    background-image: url(/assets/img/fondo.jpg);
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     padding-top: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-image 1s ease-in-out;
 }
 
 .hero-overlay {
@@ -121,7 +126,7 @@ body {
     color: white;
     padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: -80px auto 0;
 }
 
 .hero h1 {
@@ -211,13 +216,13 @@ body {
 }
 
 .search-button:hover {
-    background: #1d4ed8;
+    background: #26978e;
 }
 
 /* Destinations Section */
 .destinations {
     padding: 5rem 1rem;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -228,39 +233,51 @@ body {
     margin-bottom: 3rem;
 }
 
-.destinations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+/* Carousel Styles */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.carousel-track {
+    display: flex;
     gap: 2rem;
+    transition: transform 0.5s ease-in-out;
 }
 
 .destination-card {
+    flex: 0 0 calc(33.333% - 1.33rem); /* Esto mantiene el ancho de cada tarjeta en un tercio */
+    max-width: calc(33.333% - 1.33rem);
     background: white;
     border-radius: 0.75rem;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .destination-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
 }
 
 .destination-card img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
+    border-radius: 0.75rem 0.75rem 0 0;
 }
 
 .card-content {
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .card-header h3 {
@@ -276,69 +293,51 @@ body {
 .card-description {
     color: #6b7280;
     font-size: 0.875rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
 }
 
 .card-button {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     background: #2ab0a5;
     color: white;
     border: none;
     border-radius: 0.375rem;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .card-button:hover {
-    background: #1d4ed8;
-}
-
-/**/
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-    max-width: 100%;
-}
-
-.carousel-track {
-    display: flex;
-    gap: 1rem;
-    transition: transform 0.5s ease-in-out;
+    background: #26978e;
 }
 
 .carousel-nav {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 .carousel-nav button {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     border: none;
     background: #d1d5db;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .carousel-nav button.active {
     background: #2ab0a5;
+    transform: scale(1.2);
 }
-
-.carousel-track .destination-card {
-    min-width: 33.33%; /* Mostrar tres tarjetas a la vez */
-    flex-shrink: 0;
-}
-
-
 
 /* Promo Section */
 .promo {
-    background: #2ab0a5;
+    background: linear-gradient(to right, #26978e, #3fdbd4);
     color: white;
     padding: 5rem 1rem;
 }
@@ -426,6 +425,17 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .destination-card {
+        flex: 0 0 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -453,5 +463,40 @@ footer {
 
     .search-grid {
         grid-template-columns: 1fr;
+    }
+
+    .destination-card {
+        flex: 0 0 calc(100% - 1rem);
+        max-width: calc(100% - 1rem);
+    }
+    
+    .carousel {
+        padding: 0.5rem;
+    }
+    
+    .carousel-track {
+        gap: 1rem;
+    }
+    
+    .hero-content {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .search-form {
+        padding: 1rem;
+    }
+    
+    .destination-card img {
+        height: 200px;
     }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Vuelos</title>
+    <link rel="stylesheet" href="/assets/css/resultados.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="shortcut icon" href="/assets/img/avion.png" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <i data-lucide="plane" class="logo-icon"></i>
+                <span>Viaje por Colombia</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="active">Vuelos</a>
+                <a href="#">Hoteles</a>
+                <a href="#">Paquetes</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="search-summary">
+            <div class="route-info">
+                <h1>Vuelos disponibles</h1>
+                <div class="route-cities">
+                    <span id="origin-city"></span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span id="destination-city"></span>
+                </div>
+            </div>
+            <div class="search-filters">
+                <button class="filter-chip active">
+                    <i class="fas fa-sort"></i>
+                    Recomendados
+                </button>
+                <button class="filter-chip">
+                    <i class="fas fa-clock"></i>
+                    Duración
+                </button>
+                <button class="filter-chip">
+                    <i class="fas fa-dollar-sign"></i>
+                    Precio
+                </button>
+            </div>
+        </div>
+
+        <div id="flight-results" class="flight-results"></div>
+    </main>
+</body>
+<script src="/assets/js/resultados.js"></script>
+</html>
