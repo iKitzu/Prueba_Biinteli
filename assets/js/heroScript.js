@@ -16,5 +16,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Cambia la imagen cada 3 segundos
-    setInterval(changeBackgroundImage, 3000);
+    setInterval(changeBackgroundImage, 7000);
 });

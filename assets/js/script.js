@@ -170,13 +170,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Form handling
 document.querySelector('.search-button').addEventListener('click', (e) => {
     e.preventDefault();
-
-    // Get selected origin and destination
-    const origen = document.getElementById('origen').value;
-    const destino = document.getElementById('destino').value;
-
-    // Redirect to results page with parameters
-    window.location.href = `/assets/view/resultados.html?origen=${encodeURIComponent(origen)}&destino=${encodeURIComponent(destino)}`;
+    buscarVuelo(); // Llamar directamente a la función buscarVuelo
 });
 
 // Navbar scroll handling
@@ -195,3 +189,121 @@ window.addEventListener('scroll', function() {
 populateCarousel();
 updateCarousel();
 startCarousel();    
+
+
+
+/* */
+
+// JavaScript (app.js)
+
+const API_URL = "http://localhost:8080/API/journeyFlights";
+
+// Cargar orígenes y destinos desde la API
+async function cargarOpciones() {
+    const respuesta = await fetch(API_URL);
+    const data = await respuesta.json();
+
+    const origenes = new Set();
+    const destinos = new Set();
+
+    data.forEach(vuelo => {
+        origenes.add(vuelo.journey_id.origin);
+        destinos.add(vuelo.journey_id.destination);
+    });
+
+    llenarSelect("origen", origenes);
+    llenarSelect("destino", destinos);
+}
+
+// Función para llenar los select con los datos obtenidos
+function llenarSelect(id, opciones) {
+    const select = document.getElementById(id);
+    opciones.forEach(opcion => {
+        const optionElement = document.createElement("option");
+        optionElement.value = opcion;
+        optionElement.textContent = opcion;
+        select.appendChild(optionElement);
+    });
+}
+
+// Función al hacer clic en 'Buscar Vuelos'
+async function buscarVuelo() {
+    const origen = document.getElementById("origen").value;
+    const destino = document.getElementById("destino").value;
+
+    console.log('Buscando vuelos:', { origen, destino });
+
+    try {
+        const respuesta = await fetch(API_URL);
+        const data = await respuesta.json();
+        
+        // Encontrar todos los vuelos que coincidan con origen y destino
+        const vuelos = data.filter(v => 
+            v.journey_id.origin === origen && 
+            v.journey_id.destination === destino
+        );
+
+        if (vuelos.length > 0) {
+            console.log('Vuelos encontrados:', vuelos);
+            
+            // Limpiar localStorage antes de guardar nuevos datos
+            localStorage.clear();
+            
+            // Guardar los vuelos como JSON string en localStorage
+            localStorage.setItem("vuelosEncontrados", JSON.stringify(vuelos));
+
+            // Redirigir a la página de resultados
+            window.location.href = "/assets/view/resultados.html";
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sin Resultados',
+                text: 'No se encontraron vuelos para la ruta seleccionada.',
+                confirmButtonText: 'Intentar de nuevo',
+                customClass: {
+                    popup: 'popup-warning',
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error al buscar vuelos:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error en la búsqueda',
+            text: 'Hubo un problema al buscar vuelos. Por favor, intenta de nuevo.',
+            confirmButtonText: 'Entendido',
+            customClass: {
+                popup: 'popup-error',
+            }
+        });
+    }
+}
+
+
+// Cargar los datos al inicio
+cargarOpciones();
+
+// Objeto con las abreviaturas y nombres completos de las ciudades
+const ciudades = {
+    "BGA": "Bucaramanga",
+    "BTA": "Bogotá",
+    "MED": "Medellín",
+    "CTG": "Cartagena",
+    "CAL": "Cali",
+    "CUC": "Cúcuta",
+    "STA": "Santa Marta"
+};
+
+// Función para llenar los select con los nombres completos
+function llenarSelect(id, opciones) {
+    const select = document.getElementById(id);
+    opciones.forEach(opcion => {
+        const optionElement = document.createElement("option");
+        optionElement.value = opcion;
+        optionElement.textContent = ciudades[opcion] || opcion; // Usa el nombre completo o la abreviatura si no hay coincidencia
+        select.appendChild(optionElement);
+    });
+}
+
+// Llama a cargarOpciones como ya tienes definido
+cargarOpciones();

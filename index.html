@@ -6,6 +6,8 @@
     <title>Viaje por Colombia</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <link rel="shortcut icon" href="/assets/img/avion.png" type="image/x-icon">
 
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -38,6 +40,14 @@
         <div class="hero-content">
             <h1>Descubre Colombia Volando</h1>
             <p>Los mejores destinos nacionales al mejor precio</p>
+
+            <div id="popup" class="popup hidden">
+                <div class="popup-content">
+                    <span class="close-btn" onclick="cerrarPopup()">&times;</span>
+                    <p id="popup-message"></p>
+                </div>
+            </div>
+            
             
             <!-- Search Form -->
             <div class="search-form">
@@ -47,37 +57,19 @@
                         <label>Origen</label>
                         <div class="input-icon">
                             <i data-lucide="map-pin"></i>
-                            <select id="origen">
-                                <option value="Bucaramanga">Bucaramanga</option>
-                                <option value="Bogotá">Bogotá</option>
-                                <option value="Cali">Cali</option>
-                                <option value="Medellín">Medellín</option>
-                                <option value="Santa Marta">Santa Marta</option>
-                                <option value="Cúcuta">Cúcuta</option>
-                                <option value="Cartagena">Cartagena</option>
-                            </select>
+                            <select id="origen"></select>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label>Destino</label>
                         <div class="input-icon">
                             <i data-lucide="map-pin"></i>
-                            <select id="destino">
-                                <option value="Bogotá">Bogotá</option>
-                                <option value="Cartagena">Cartagena</option>
-                                <option value="Medellín">Medellín</option>
-                                <option value="Santa Marta">Santa Marta</option>
-                                <option value="Bucaramanga">Bucaramanga</option>
-                                <option value="Buga">Buga</option>
-                                <option value="Cúcuta">Cúcuta</option>
-                                <option value="Cali">Cali</option>
-                            </select>
+                            <select id="destino"></select>
                         </div>
                     </div>
                 </div>
-                <button class="search-button">Buscar Vuelos</button>
-            </div>           
+                <button class="search-button" onclick="buscarVuelo()">Buscar Vuelos</button>
+            </div>         
         </div>
     </div>
 
@@ -140,6 +132,8 @@
             <p>© 2024 Viaje por Colombia. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="/assets/js/script.js"></script>
     <script src="/assets/js/heroScript.js"></script>

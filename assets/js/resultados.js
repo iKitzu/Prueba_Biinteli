@@ -1,155 +1,84 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const origen = params.get('origen') || 'N/A';
-    const destino = params.get('destino') || 'N/A';
+// Objeto con las abreviaturas y nombres completos de las ciudades
+const ciudades = {
+    "BGA": "Bucaramanga",
+    "BTA": "Bogotá",
+    "MED": "Medellín",
+    "CTG": "Cartagena",
+    "CAL": "Cali",
+    "CUC": "Cúcuta",
+    "STA": "Santa Marta"
+};
 
-    // Actualizar las ciudades en el resumen
-    document.getElementById('origin-city').textContent = origen;
-    document.getElementById('destination-city').textContent = destino;
+function formatPrice(price) {
+    return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP'
+    }).format(price);
+}
 
-    const vuelos = [
-        {
-            tipoVuelo: "ida",
-            horaSalida: "06:05",
-            ciudadSalida: origen,
-            duracion: "59m",
-            horaLlegada: "07:04",
-            ciudadLlegada: destino,
-            precio: "235,925",
-            tarifas: [
-                {
-                    tipo: "basic",
-                    descripcion: "Vuela ligero",
-                    precio: "235,925",
-                    detalles: ["1 artículo personal (bolso)", "No incluye equipaje de mano o bodega", "No incluye selección de asiento"]
-                },
-                {
-                    tipo: "classic",
-                    descripcion: "Más completo",
-                    precio: "339,950",
-                    detalles: ["1 artículo personal (bolso)", "1 equipaje de mano (10 kg)", "1 equipaje de bodega (23 kg)", "Check-in en aeropuerto", "Asiento Economy incluido", "Acumula 5 lifemiles por cada USD"]
-                },
-                {
-                    tipo: "flex",
-                    descripcion: "Más posibilidades",
-                    precio: "378,275",
-                    detalles: ["1 artículo personal (bolso)", "1 equipaje de mano (10 kg)", "1 equipaje de bodega (23 kg)", "Check-in en aeropuerto", "Asiento Plus (sujeto a disponibilidad)", "Acumula 7 lifemiles por cada USD", "Cambios antes del vuelo", "Reembolso antes del vuelo"]
-                }
-            ]
-        },
-        {
-            tipoVuelo: "vuelta",
-            horaSalida: "18:00",
-            ciudadSalida: destino,
-            duracion: "59m",
-            horaLlegada: "18:59",
-            ciudadLlegada: origen,
-            precio: "235,925",
-            tarifas: [
-                {
-                    tipo: "basic",
-                    descripcion: "Vuela ligero",
-                    precio: "235,925",
-                    detalles: ["1 artículo personal (bolso)", "No incluye equipaje de mano o bodega", "No incluye selección de asiento"]
-                },
-                {
-                    tipo: "classic",
-                    descripcion: "Más completo",
-                    precio: "339,950",
-                    detalles: ["1 artículo personal (bolso)", "1 equipaje de mano (10 kg)", "1 equipaje de bodega (23 kg)", "Check-in en aeropuerto", "Asiento Economy incluido", "Acumula 5 lifemiles por cada USD"]
-                },
-                {
-                    tipo: "flex",
-                    descripcion: "Más posibilidades",
-                    precio: "378,275",
-                    detalles: ["1 artículo personal (bolso)", "1 equipaje de mano (10 kg)", "1 equipaje de bodega (23 kg)", "Check-in en aeropuerto", "Asiento Plus (sujeto a disponibilidad)", "Acumula 7 lifemiles por cada USD", "Cambios antes del vuelo", "Reembolso antes del vuelo"]
-                }
-            ]
+window.onload = function() {
+    try {
+        const vuelosStr = localStorage.getItem('vuelosEncontrados');
+        if (!vuelosStr) {
+            throw new Error('No se encontraron datos de vuelos');
         }
-    ];
 
-    renderVuelos(vuelos);
+        const vuelos = JSON.parse(vuelosStr);
+        if (vuelos.length === 0) {
+            throw new Error('No hay vuelos disponibles');
+        }
 
-    // Manejadores de eventos para los filtros
-    document.querySelectorAll('.filter-chip').forEach(button => {
-        button.addEventListener('click', () => {
-            document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-        });
-    });
-});
-
-function renderVuelos(vuelos) {
-    const container = document.getElementById("flight-results");
-    container.innerHTML = "";
-
-    vuelos.forEach((vuelo) => {
-        const flightCard = document.createElement("div");
-        flightCard.className = "flight-card";
-
-        const tipoViaje = vuelo.tipoVuelo === "ida" ? "Vuelo de Ida" : "Vuelo de Vuelta";
-
-        flightCard.innerHTML = `
-            <div class="flight-summary" onclick="toggleDetails(this.parentElement)">
-                <div class="flight-time departure">
-                    <div class="time">${vuelo.horaSalida}</div>
-                    <div class="city">${vuelo.ciudadSalida}</div>
-                </div>
-                <div class="flight-duration">
-                    <span class="duration-badge">
-                        <i class="fas fa-plane"></i>
-                        ${vuelo.duracion}
-                    </span>
-                    <span class="duration-type">Directo</span>
-                </div>
-                <div class="flight-time arrival">
-                    <div class="time">${vuelo.horaLlegada}</div>
-                    <div class="city">${vuelo.ciudadLlegada}</div>
-                </div>
-                <div class="flight-price">
-                    <div class="price-amount">COP ${vuelo.precio}</div>
-                    <div class="price-label">por persona</div>
-                </div>
-            </div>
-            <div class="flight-details">
-                <div class="fare-options">
-                    ${vuelo.tarifas.map((tarifa) => `
-                        <div class="fare-card ${tarifa.tipo}">
-                            <div class="fare-header">
-                                <div>
-                                    <div class="fare-type">${tarifa.tipo}</div>
-                                    <div class="fare-desc">${tarifa.descripcion}</div>
-                                </div>
-                                <div class="fare-price">
-                                    <div class="fare-amount">COP ${tarifa.precio}</div>
-                                </div>
-                            </div>
-                            <ul class="fare-features">
-                                ${tarifa.detalles.map((detalle) => `
-                                    <li class="fare-feature">
-                                        <i class="fas fa-check-circle"></i>
-                                        ${detalle}
-                                    </li>
-                                `).join('')}
-                            </ul>
-                            <div class="fare-footer">
-                                <button class="select-fare">Seleccionar tarifa</button>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
+        // Mostrar información de la ruta
+        const routeInfo = document.getElementById('routeInfo');
+        routeInfo.innerHTML = `
+            <h2>${ciudades[vuelos[0].journey_id.origin] || vuelos[0].journey_id.origin} → ${ciudades[vuelos[0].journey_id.destination] || vuelos[0].journey_id.destination}</h2>
+            <p>${vuelos.length} vuelo(s) encontrado(s)</p>
         `;
 
-        container.appendChild(flightCard);
-    });
-}
+        // Mostrar todos los vuelos
+        const container = document.getElementById('flightsContainer');
+        vuelos.forEach(vuelo => {
+            const card = document.createElement('div');
+            card.className = 'flight-card';
+            card.innerHTML = `
+                <div class="flight-info">
+                    <div class="info-item">
+                        <h3>Aerolínea</h3>
+                        <p>${vuelo.flight_id.transport_id.flight_carrier}</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Número de Vuelo</h3>
+                        <p>${vuelo.flight_id.transport_id.flight_number}</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Origen</h3>
+                        <p>${ciudades[vuelo.journey_id.origin] || vuelo.journey_id.origin}</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Destino</h3>
+                        <p>${ciudades[vuelo.journey_id.destination] || vuelo.journey_id.destination}</p>
+                    </div>
+                </div>
+                <div class="price-tag">
+                    ${formatPrice(vuelo.journey_id.price)}
+                </div>
+            `;
+            container.appendChild(card);
+        });
 
-function toggleDetails(element) {
-    const details = element.querySelector('.flight-details');
-    details.classList.toggle('open');
+    } catch (error) {
+        console.error('Error al cargar los vuelos:', error);
+        const errorDiv = document.getElementById('errorMessage');
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = error.message;
+        
+        // Mostrar contenedor de "sin resultados"
+        const container = document.getElementById('flightsContainer');
+        container.innerHTML = `
+            <div class="no-results">
+                <h2>No se encontraron vuelos</h2>
+                <p>Por favor, intenta con una nueva búsqueda</p>
+            </div>
+        `;
+    }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    lucide.createIcons();
-});
